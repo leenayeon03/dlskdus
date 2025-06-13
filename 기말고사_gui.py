@@ -564,15 +564,16 @@ class ConvTempWin():
     def __buildGUI(self):
         self.__create_input_frame().pack()
         self.__create_button_frame().pack()
+        
     def __create_input_frame(self):
         frame = ttk.Frame(self.win)
         f_Label = ttk.Label(self.win, text='화씨')
         self.__f = tk.IntVar()
-        f_entry = ttk.Entry(self.win, justify=tk.RIGHT, width=11, textvariable=self.__f)
+        f_entry = ttk.Entry(frame, justify=tk.RIGHT, width=11, textvariable=self.__f)
         
-        c_Label = ttk.Label(self.win, text='섭씨')
+        c_Label = ttk.Label(frame, text='섭씨')
         self.__c = tk.DoubleVar()
-        c_entry = ttk.Entry(self.win, justify=tk.RIGHT, width=11, textvariable=self.__c)
+        c_entry = ttk.Entry(frame, justify=tk.RIGHT, width=11, textvariable=self.__c)
         
 
         f_Label.pack(side=tk.LEFT)
@@ -586,10 +587,10 @@ class ConvTempWin():
         
     def __create_button_frame(self):
         frame=ttk.Frame(self.win)
-        ftoc_btm = ttk.Button(self.win, text='화씨->섭씨', command=self.__ftoc_handler)
-        ctof_btm = ttk.Button(self.win, text='섭씨->화씨', command=self.__ctof_handler)
-        reset_btm = ttk.Button(self.win, text='초기화', command=self.__reset_handler)
-        quit_btm = ttk.Button(self.win, text='종료', command=self.win.destroy)
+        ftoc_btm = ttk.Button(frame, text='화씨->섭씨', command=self.__ftoc_handler)
+        ctof_btm = ttk.Button(frame, text='섭씨->화씨', command=self.__ctof_handler)
+        reset_btm = ttk.Button(frame, text='초기화', command=self.__reset_handler)
+        quit_btm = ttk.Button(frame, text='종료', command=self.win.destroy)
         
         ftoc_btm.pack(side=tk.LEFT)
         ctof_btm.pack(side=tk.LEFT)
@@ -652,10 +653,10 @@ class MemberReg():
     def __create_grade_input_frame(self):
         frame = ttk.Frame(self.win)
         self.text_label = ttk.Label(frame, text='학년: ')
-        sub_frame = ttk.Frame(frame)
+        sub_frame = ttk.Frame(frame) #학년 선택 버튼을 담을 하위 프레임 생성
         self.grade = tk.IntVar()
         for i in range(1,5):
-            grade_btn = ttk.Radiobutton(sub_frame, text=f'{i}학년', value=i, variable=self.grade)
+            grade_btn = ttk.Radiobutton(sub_frame, text=f'{i}학년', value=i, variable=self.grade) #radio:하나만 선택
             grade_btn.pack(side=tk.LEFT)
         sub_frame.grid(row=0, column=1)
         
@@ -716,19 +717,22 @@ class Word:
     def buildGUI(self):
         l_word= ttk.Label(self.win, text='단어: ')
         self.word = tk.StringVar()
-        e_word= ttk.Entry(self.win, textvariable=self.word, width=15)
+        e_word= ttk.Entry(self.win, textvariable=self.word, width=15) #textvariable : self.word와 연결하는 입력창을 만듦
         
-        l_mean = ttk.Label(self.win, text='뜻')
+        l_mean = ttk.Label(self.win, text='뜻: ')
         self.mean = tk.StringVar()
         e_mean = ttk.Entry(self.win, textvariable=self.mean, width=35)
         
+        #
         b_search = ttk.Button(self.win, text='검색', width=5, command=self.search)
         b_add = ttk.Button(self.win, text='추가', width=5, command=self.add)
         b_reset = ttk.Button(self.win, text='초기화', width=5, command=self.reset)
-        b_exit = ttk.Button(self.win, text='종료', command=self.end)
+        b_exit = ttk.Button(self.win, text='종료', width=5 ,command=self.end)
+        
         
         l_word.grid(row=0, column=0, sticky='e', padx=10)
         e_word.grid(row=0, column=1, sticky='w')
+        
         b_search.grid(row=0, column=2, ipadx=10, ipady=5, sticky='w')
         b_add.grid(row=0, column=3, ipadx=10, ipady=5, sticky='w')
         
